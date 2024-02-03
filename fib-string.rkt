@@ -1,5 +1,6 @@
 #lang typed/racket
 
+; Naive Solutions
 (define (rule ch)
   (cond [(equal? ch #\a) "b"]
         [(equal? ch #\b) "ab"]
@@ -20,6 +21,17 @@
           }
     (string-length (iterate-apply-rule n "a"))))
 
+(length-recursive-gen (Number -> Number))
+(define (length-recursive-gen n)
+  (local {
+          (define (recursive-gen n)
+            (cond [(= n 0) "a"]
+                  [(= n 1) "b"]
+                  [else (string-append (recursive-gen (- n 2)) (recursive-gen (- n 1)))]))
+          }
+    (string-length (recursive-gen n))
+
+; 
 (: fibonacci (Number -> Number))
 (define (fibonacci n)
   (cond [(= n 0) 1]
